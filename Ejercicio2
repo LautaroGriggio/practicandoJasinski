@@ -55,8 +55,22 @@ public class Principal {
 	}
 	
 	public static void ingresarPersona(Scanner s, int[][] personas, int i) {
-		System.out.println("Ingrese el DNI de la persona numero: "+ (i+1) + " (El DNI debe estar entre 10000000 y 99999999) ");
-		personas[i][0]=ingresarEntero(s,"", 10000000, 99999999 );
+		int dni;
+		boolean flag=false;
+		do {
+		
+			System.out.println("Ingrese el DNI de la persona numero: "+ (i+1) + " (El DNI debe estar entre 10000000 y 99999999) ");
+			personas[i][0]=ingresarEntero(s,"", 10000000, 99999999 );
+			dni=personas[i][0];
+			if(buscarSiExiste(personas, dni) == true) {
+			System.out.println("Ese dni ya existe por ende no es valido");
+			flag=true;
+			}else {
+				flag=false;
+			}
+		}while(flag);
+		
+		
 		System.out.println("Es masculino (0) o femenino (1)");
 		personas[i][1]=ingresarEntero(s,"", 0, 1 );
 		System.out.println("Trabaja? si(1) no(0)");
@@ -70,7 +84,29 @@ public class Principal {
 		}
 				
 			
+			}
+
+
+	public static boolean buscarSiExiste(int[][] personas, int dni) {
+		boolean flag= false;
+		int i=0;
+		do {
 			
+			if(personas[i][0]== dni) {
+				
+				flag = true;
+				System.out.println("Ese dni ya existe");
+				return flag;
+
+			}else {
+				flag=false;
+				i++;
+			}
 			
-		}
+		}while(!flag || i<11);
+		
+		System.out.println("bien");
+		return flag;
+		
+	}
 }
