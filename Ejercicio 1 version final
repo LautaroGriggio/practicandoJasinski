@@ -1,4 +1,4 @@
-package LautaroGriggio;
+package lautaro.griggio;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
