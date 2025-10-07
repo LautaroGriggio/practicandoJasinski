@@ -35,7 +35,7 @@ public class Ejercicio1 {
 				}
 			}catch(InputMismatchException e) {
 				s.nextLine();
-				System.out.println("Te pedi un numero marmota");
+				System.out.println("Erro debe ingresar un numero");
 				flag=false;
 			}catch(Exception e) {
 				s.nextLine();
@@ -90,11 +90,11 @@ public class Ejercicio1 {
 			cod = ingresarEntero(s,"Ingrese el codigo del producto o 0 para salir",0, 500);
 			if(cod!=0) {
 				if(false==verificarNuevoIngreso(cod, productos)) {
-			productos[vacio][0] = cod;
-			System.out.println("Ingrese el precio");
-			productos[vacio][1]=ingresarEntero(s,"",1, 1000000);
-			System.out.println("Ingrese la cantidad");
-			productos[vacio][2]=ingresarEntero(s,"",1, 50);
+					productos[vacio][0] = cod;
+					System.out.println("Ingrese el precio");
+					productos[vacio][1]=ingresarEntero(s,"",1, 1000000);
+					System.out.println("Ingrese la cantidad");
+					productos[vacio][2]=ingresarEntero(s,"",1, 50);
 			
 			vacio++;
 				}else {
