@@ -1,0 +1,175 @@
+package LautaroGriggio;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Ejercicio1 {
+
+	public static void main(String[] args) {
+		int[][] productos = new int[50][3];
+
+		Scanner s = new Scanner(System.in);
+		
+		mostrarMenu(s, productos);
+		
+		s.close();
+	
+	}
+	
+	public static int ingresarEntero(Scanner s, String mensaje, int MIN, int MAX) {
+		
+		boolean flag=false;
+		System.out.println(mensaje);
+		int n;
+		do {
+			
+			try {
+				n = s.nextInt();
+				flag= true;
+				if(n<MIN||n>MAX){
+					System.out.println("El numero no esta en el rango");
+					flag=false;
+				}else {
+				
+				return n;
+				}
+			}catch(InputMismatchException e) {
+				s.nextLine();
+				System.out.println("Te pedi un numero marmota");
+				flag=false;
+			}catch(Exception e) {
+				s.nextLine();
+				System.out.println("error no contemplado");
+				flag=false;
+			}
+			
+			
+		}while(!flag);
+		
+		return -1;
+	}
+	
+	public static void mostrarMenu(Scanner s, int[][] productos) {
+		int menu;
+		
+		do {
+		System.out.println("1: Ingresar producto");
+		System.out.println("2: Consultar producto");
+		System.out.println("3: Salir");
+		menu=ingresarEntero(s, "Ingrese la opcion que quiere:", 1, 3);
+			switch(menu) {
+			
+			case 1:
+				ingresarProducto(s, productos);
+				break;
+				
+			case 2:
+				
+				consultarProducto(s, productos);
+				
+				break;
+				
+			case 3:
+				System.out.println("Usted cerro el programa");
+				break;
+				
+				}
+		}while(menu!=3);
+		
+	}
+	public static void ingresarProducto(Scanner s, int[][] productos) {
+		int vacio;
+		int cod;
+		vacio=buscarVacio(productos);
+		if(vacio==-1) {
+			System.out.println("No hay espacio para mas productos  ");
+			
+		}else {
+		
+		do {
+			cod = ingresarEntero(s,"Ingrese el codigo del producto o 0 para salir",0, 500);
+			if(cod!=0) {
+				if(false==verificarNuevoIngreso(cod, productos)) {
+			productos[vacio][0] = cod;
+			System.out.println("Ingrese el precio");
+			productos[vacio][1]=ingresarEntero(s,"",1, 1000000);
+			System.out.println("Ingrese la cantidad");
+			productos[vacio][2]=ingresarEntero(s,"",1, 50);
+			
+			vacio++;
+				}else {
+					System.out.println("Este numero ya fue ingresado, intente otra vez");
+				}
+			}else {
+				System.out.println("usted salio del programa");
+			}
+		}while(cod != 0 );
+		}
+	}
+	public static int buscarVacio(int[][] productos) {
+		
+		int i=0;
+		boolean flag=false;
+		
+		do {
+			if(productos[i][0]==0) {
+				
+			flag=false;
+			return i;
+			}else {
+				i++;
+				flag=true;
+			}
+			
+			
+		}while(flag && i<productos.length);
+		return -1;
+	}
+	
+	public static void consultarProducto(Scanner s, int[][] productos) {
+		
+		boolean flag=false;
+		int i=0;
+		int n;
+		
+		n=ingresarEntero(s, "Ingrese el codigo del producto que quiere consultar: ", 1,500);
+		do {
+			if(n==productos[i][0]) {
+				System.out.println("El precio de este producto es: " + productos[i][1] + 
+						" Y la cantidad de stok es:  "+ productos[i][2]);
+				flag=true;
+				
+			}else {
+				i++;
+				flag=false;
+			}
+			
+			
+			
+		}while(!flag && i<productos.length);
+		
+		if(!flag) {
+		System.out.println("El producto no fue encontrado");
+		}
+	
+	}
+	
+	public static boolean verificarNuevoIngreso(int cod, int[][] productos) {
+		boolean flag = false;
+		int i=0;
+		do {
+			
+			if(cod==productos[i][0]) {
+				flag= true;
+				
+				return flag;
+			}else {
+				flag=false;
+				i++;
+			}
+			
+		}while(!flag && i<productos.length);
+		
+		return flag;
+	}
+}
